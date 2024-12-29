@@ -1,0 +1,20 @@
+{
+  "" : {
+    "const-values" : "/Users/bbrabbit/Documents/flutterdemo/frinda/macos/build/Pods.build/Release/macos_ui.build/Objects-normal/arm64/macos_ui-master.swiftconstvalues",
+    "dependencies" : "/Users/bbrabbit/Documents/flutterdemo/frinda/macos/build/Pods.build/Release/macos_ui.build/Objects-normal/arm64/macos_ui-master.d",
+    "diagnostics" : "/Users/bbrabbit/Documents/flutterdemo/frinda/macos/build/Pods.build/Release/macos_ui.build/Objects-normal/arm64/macos_ui-master.dia",
+    "emit-module-dependencies" : "/Users/bbrabbit/Documents/flutterdemo/frinda/macos/build/Pods.build/Release/macos_ui.build/Objects-normal/arm64/macos_ui-master-emit-module.d",
+    "emit-module-diagnostics" : "/Users/bbrabbit/Documents/flutterdemo/frinda/macos/build/Pods.build/Release/macos_ui.build/Objects-normal/arm64/macos_ui-master-emit-module.dia",
+    "swift-dependencies" : "/Users/bbrabbit/Documents/flutterdemo/frinda/macos/build/Pods.build/Release/macos_ui.build/Objects-normal/arm64/macos_ui-master.swiftdeps"
+  },
+  "/Users/bbrabbit/.pub-cache/hosted/pub.dev/macos_ui-2.0.9/macos/Classes/ColorPanelProvider.swift" : {
+    "index-unit-output-path" : "/Pods.build/Release/macos_ui.build/Objects-normal/arm64/ColorPanelProvider.o",
+    "llvm-bc" : "/Users/bbrabbit/Documents/flutterdemo/frinda/macos/build/Pods.build/Release/macos_ui.build/Objects-normal/arm64/ColorPanelProvider.bc",
+    "object" : "/Users/bbrabbit/Documents/flutterdemo/frinda/macos/build/Pods.build/Release/macos_ui.build/Objects-normal/arm64/ColorPanelProvider.o"
+  },
+  "/Users/bbrabbit/.pub-cache/hosted/pub.dev/macos_ui-2.0.9/macos/Classes/MacosUiPlugin.swift" : {
+    "index-unit-output-path" : "/Pods.build/Release/macos_ui.build/Objects-normal/arm64/MacosUiPlugin.o",
+    "llvm-bc" : "/Users/bbrabbit/Documents/flutterdemo/frinda/macos/build/Pods.build/Release/macos_ui.build/Objects-normal/arm64/MacosUiPlugin.bc",
+    "object" : "/Users/bbrabbit/Documents/flutterdemo/frinda/macos/build/Pods.build/Release/macos_ui.build/Objects-normal/arm64/MacosUiPlugin.o"
+  }
+}

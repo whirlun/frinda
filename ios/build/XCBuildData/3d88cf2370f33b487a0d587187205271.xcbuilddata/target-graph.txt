@@ -1,0 +1,17 @@
+Target dependency graph (7 targets)
+Target 'Pods-RunnerTests' in project 'Pods'
+➜ Explicit dependency on target 'Pods-Runner' in project 'Pods'
+Target 'Pods-Runner' in project 'Pods'
+➜ Explicit dependency on target 'Flutter' in project 'Pods'
+➜ Explicit dependency on target 'integration_test' in project 'Pods'
+➜ Explicit dependency on target 'path_provider_foundation' in project 'Pods'
+➜ Explicit dependency on target 'rust_lib_frinda' in project 'Pods'
+Target 'rust_lib_frinda' in project 'Pods'
+➜ Explicit dependency on target 'Flutter' in project 'Pods'
+Target 'path_provider_foundation' in project 'Pods'
+➜ Explicit dependency on target 'Flutter' in project 'Pods'
+➜ Explicit dependency on target 'path_provider_foundation-path_provider_foundation_privacy' in project 'Pods'
+Target 'path_provider_foundation-path_provider_foundation_privacy' in project 'Pods' (no dependencies)
+Target 'integration_test' in project 'Pods'
+➜ Explicit dependency on target 'Flutter' in project 'Pods'
+Target 'Flutter' in project 'Pods' (no dependencies)

@@ -1,0 +1,6 @@
+framework module rust_lib_frinda {
+  umbrella header "rust_lib_frinda-umbrella.h"
+
+  export *
+  module * { export * }
+}
