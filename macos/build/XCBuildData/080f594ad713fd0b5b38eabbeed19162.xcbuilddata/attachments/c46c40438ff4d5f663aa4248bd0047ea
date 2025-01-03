@@ -1,5 +1,0 @@
- extern const unsigned char rust_lib_frindaVersionString[];
- extern const double rust_lib_frindaVersionNumber;
-
- const unsigned char rust_lib_frindaVersionString[] __attribute__ ((used)) = "@(#)PROGRAM:rust_lib_frinda  PROJECT:Pods-1" "\n";
- const double rust_lib_frindaVersionNumber __attribute__ ((used)) = (double)1.;

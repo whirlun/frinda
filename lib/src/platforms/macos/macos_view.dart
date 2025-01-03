@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:frinda/src/common/blocs/book_bloc.dart';
+import 'package:frinda/src/common/cubits/books_cubit.dart';
+import 'package:frinda/src/platforms/macos/add_book.dart';
 import 'package:macos_ui/macos_ui.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class MacosView extends StatelessWidget {
   const MacosView({super.key});
@@ -10,7 +14,11 @@ class MacosView extends StatelessWidget {
     return MacosApp(
         theme: MacosThemeData.light(),
         darkTheme: MacosThemeData.dark(),
-        home: const MyHomePage());
+        home: BlocProvider(create: (_) {
+          final cubit = BooksCubit();
+          cubit.readBookFromDatabase();
+          return cubit;
+        }, child: const MyHomePage()));
   }
 }
 
@@ -54,9 +62,17 @@ class _MyHomePageState extends State<MyHomePage> {
             children: [
               ContentArea(
                 builder: ((context, scrollController) {
-                  return const Center(
-                    child: Text('Home'),
-                  );
+                  return BlocBuilder<BooksCubit, BooksState>(builder: (context, state) {
+                    return Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        AddBookButton(),
+                        Text('Books: ${state.books.length}'),
+                        for (var b in state.books.where((b) => b.state is BookLoaded)) Text((b.state as BookLoaded).book.title),
+                      ],
+                    );
+                  });
                 }),
               ),
             ],
