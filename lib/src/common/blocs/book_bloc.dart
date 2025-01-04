@@ -16,17 +16,20 @@ class BookBloc extends Bloc<BookEvent, BookState> {
   BookBloc() : super(BookInitial()) {
     on<LoadBookEvent>(_loadBook);
     on<RestoreJsonEvent>(_restoreFromJson);
+    on<RestoreDatabaseEvent>(_restoreFromDatabase);
   }
 
   void _loadBook(event, emit) async {
+    print(state.runtimeType);
+    if (state is! BookLoaded) {
+      return;
+    }
     FilePickerResult? result = await FilePicker.platform.pickFiles();
     if (result != null) {
-      emit(BookLoading(result.files.single.path!));
       File file = File(result.files.single.path!);
       final storageDir = await getApplicationDocumentsDirectory();
       final copied = await file.copy("${storageDir.path}/${p.basename(file.path)}");
-
-      if (p.extension(file.path) == "epub") {
+      if (p.extension(file.path) == ".epub") {
         final bytes = file.readAsBytes();
         EpubBook epubBook = await EpubReader.readBook(bytes);
         EpubPackage? package = epubBook.Schema?.Package;
@@ -49,8 +52,8 @@ class BookBloc extends Bloc<BookEvent, BookState> {
             path: copied.path,
             cover: coverPath);
         bookBox.put(book);
-        emit(BookLoaded(book));
-      } else if (p.extension(file.path) == "mobi") {
+        emit(BookLoaded((state as BookLoaded).books + [book]));
+      } else if (p.extension(file.path) == ".mobi") {
         final bytes = await file.readAsBytes();
         final mobiData = await DartMobiReader.read(bytes);
         String title = mobiData.mobiHeader?.fullname ?? "";
@@ -80,13 +83,37 @@ class BookBloc extends Bloc<BookEvent, BookState> {
             cover: null
         );
         bookBox.put(book);
-        emit(BookLoaded(book));
+        emit(BookLoaded((state as BookLoaded).books + [book]));
       }
     }
   }
 
-  void _restoreFromJson(event, emit) async {
-    emit(BookLoaded.fromJson(event.bookJson));
+  void _restoreFromDatabase(event, emit) async {
+    final bookBox = objectBox.store.box<Book>();
+    final books = bookBox.getAll();
+    emit(BookLoaded([]));
+    for (var b in books) {
+      emit(BookLoaded((state as BookLoaded).books + [b]));
+    }
+  }
+
+  void _restoreFromJson(event, emit) {
+    switch (event.bookJson['type']) {
+      case "BookInitial":
+        emit(BookInitial());
+        return;
+      case "BookLoaded":
+        emit(BookLoaded([]));
+        for (var b in event.bookJson['state']) {
+          emit(BookLoaded((state as BookLoaded).books + [Book.fromJson(b)]));
+        }
+        return;
+      case "BookLoadFailed":
+        emit(BookLoadFailed(event.bookJson['error']));
+        return;
+      default:
+        throw Exception("Unknown state type");
+    }
   }
 
   factory BookBloc.fromJson(Map<String, dynamic> json) {

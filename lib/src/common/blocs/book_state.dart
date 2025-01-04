@@ -14,60 +14,25 @@ final class BookInitial extends BookState {
 
   @override
   Map<String, dynamic> toJson() {
-    return {};
+    return {'type': 'BookInitial'};
   }
 }
-final class BookLoading extends BookState {
 
-  const BookLoading(this.path);
-  final String path;
-
-  @override
-  List<Object> get props => [path];
-  factory BookLoading.fromJson(Map<String, dynamic> json) {
-    return BookLoading(json['path']);
-  }
-
-  @override
-  Map<String, dynamic> toJson() {
-    return {'path': path};
-  }
-}
 final class BookLoaded extends BookState {
 
-  const BookLoaded(this.book);
-  final Book book;
+  const BookLoaded(this.books);
+  final List<Book> books;
 
 
   @override
-  List<Object> get props => [book.uuid];
+  List<Object> get props => [books];
   factory BookLoaded.fromJson(Map<String, dynamic> json) {
-    return BookLoaded(Book(
-      id: json['id'],
-      uuid: json['uuid'],
-      title: json['title'],
-      author: json['author'],
-      size: json['size'],
-      format: json['format'],
-      publishDate: json['publishDate'],
-      path: json['path'],
-      cover: json['cover']
-    ));
+    return BookLoaded(json['state'].map((e) => Book.fromJson(e)).toList());
   }
 
   @override
   Map<String, dynamic> toJson() {
-    return {
-      'id': book.id,
-      'uuid': book.uuid,
-      'title': book.title,
-      'author': book.author,
-      'size': book.size,
-      'format': book.format,
-      'publishDate': book.publishDate,
-      'path': book.path,
-      'cover': book.cover
-    };
+    return {'type': 'BookLoaded', 'state': books.map((e) => e.toJson()).toList()};
   }
 }
 final class BookLoadFailed extends BookState {
@@ -83,6 +48,6 @@ final class BookLoadFailed extends BookState {
 
   @override
   Map<String, dynamic> toJson() {
-    return {'error': error};
+    return {'type': 'BookLoadFailed', 'error': error};
   }
 }

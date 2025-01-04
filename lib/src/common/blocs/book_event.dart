@@ -18,3 +18,10 @@ final class RestoreJsonEvent extends BookEvent {
   @override
   List<Object> get props => [bookJson['id']];
 }
+
+final class RestoreDatabaseEvent extends BookEvent {
+  const RestoreDatabaseEvent();
+
+  @override
+  List<Object> get props => [];
+}
