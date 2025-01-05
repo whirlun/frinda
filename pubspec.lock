@@ -227,7 +227,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: ac01c2be6e975a65c23b6c5086d6d23e3b7a4c8e
+      resolved-ref: "5334260961dddc057c08b3affcb10584966693c7"
       url: "https://github.com/whirlun/dart-mobi.git"
     source: git
     version: "1.0.2"
@@ -527,10 +527,10 @@ packages:
     dependency: "direct main"
     description:
       name: macos_ui
-      sha256: "80f6539aba5a3a1182d5225a6c27969a780bcb1d2d8135b4ffb708570cf0c854"
+      sha256: c524398d3db161ac52254ebc9617c3399bdcf269ce7a70e014f202b5c4da5ea4
       url: "https://pub.dev"
     source: hosted
-    version: "2.0.9"
+    version: "2.1.4"
   macos_window_utils:
     dependency: transitive
     description:

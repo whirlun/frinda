@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'dart:math';
 import 'package:epubx/epubx.dart';
 import 'package:equatable/equatable.dart';
 import 'package:bloc/bloc.dart';
@@ -56,9 +57,11 @@ class BookBloc extends Bloc<BookEvent, BookState> {
       } else if (p.extension(file.path) == ".mobi") {
         final bytes = await file.readAsBytes();
         final mobiData = await DartMobiReader.read(bytes);
+        final rawml = mobiData.parseOpt(true, true, true);
         String title = mobiData.mobiHeader?.fullname ?? "";
         String? author;
         String? publishDate;
+        int? coverOffset;
         var cur = mobiData.mobiExthHeader;
         while (cur != null) {
           if (cur.tag == 503) {
@@ -67,10 +70,29 @@ class BookBloc extends Bloc<BookEvent, BookState> {
             author = utf8.decode(cur.data ?? []);
           } else if (cur.tag == 106) {
             publishDate = utf8.decode(cur.data ?? []);
+          } else if (cur.tag == 201) {
+            coverOffset = cur.data![0] << 24 | cur.data![1] << 16 | cur.data![2] << 8 | cur.data![3];
           }
           cur = cur.next;
         }
+        final firstImageIndex = mobiData.mobiHeader?.imageIndex ?? 0;
         final uuid = Uuid().v4();
+        File? cover;
+        print("$firstImageIndex, $coverOffset");
+
+        MobiPart? resource = rawml.resources;
+        var i = 0;
+        while (resource != null) {
+          if (i == coverOffset) {
+            cover = File(p.join(storageDir.path, "$uuid.jpg"));
+            await cover.writeAsBytes(resource.data!);
+            print(cover.path);
+            break;
+          }
+          i++;
+          resource = resource.next;
+        }
+
         final bookBox = objectBox.store.box<Book>();
         final book = Book(
             uuid: uuid,
@@ -80,7 +102,7 @@ class BookBloc extends Bloc<BookEvent, BookState> {
             format: "mobi",
             publishDate: publishDate ?? "",
             path: copied.path,
-            cover: null
+            cover: cover?.path
         );
         bookBox.put(book);
         emit(BookLoaded((state as BookLoaded).books + [book]));
