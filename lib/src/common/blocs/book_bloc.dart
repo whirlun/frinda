@@ -38,6 +38,7 @@ class BookBloc extends Bloc<BookEvent, BookState> {
         String? coverPath;
         if (epubBook.CoverImage != null) {
           Image image = epubBook.CoverImage!;
+
           final cover = File(p.join(storageDir.path, "$uuid.jpg"));
           await cover.writeAsBytes(image.data);
           coverPath = cover.path;
@@ -54,7 +55,7 @@ class BookBloc extends Bloc<BookEvent, BookState> {
             cover: coverPath);
         bookBox.put(book);
         emit(BookLoaded((state as BookLoaded).books + [book]));
-      } else if (p.extension(file.path) == ".mobi") {
+      } else if ([".mobi", ".azw", ".azw3", ".pdb", ".prc", ".azw4"].contains(p.extension(file.path))) {
         final bytes = await file.readAsBytes();
         final mobiData = await DartMobiReader.read(bytes);
         final rawml = mobiData.parseOpt(true, true, true);
@@ -78,15 +79,13 @@ class BookBloc extends Bloc<BookEvent, BookState> {
         final firstImageIndex = mobiData.mobiHeader?.imageIndex ?? 0;
         final uuid = Uuid().v4();
         File? cover;
-        print("$firstImageIndex, $coverOffset");
 
         MobiPart? resource = rawml.resources;
         var i = 0;
         while (resource != null) {
           if (i == coverOffset) {
-            cover = File(p.join(storageDir.path, "$uuid.jpg"));
+            cover = File(p.join(storageDir.path, "covers", "$uuid.jpg"));
             await cover.writeAsBytes(resource.data!);
-            print(cover.path);
             break;
           }
           i++;
@@ -99,12 +98,12 @@ class BookBloc extends Bloc<BookEvent, BookState> {
             title: title,
             author: author ?? "",
             size: file.lengthSync(),
-            format: "mobi",
+            format: p.extension(file.path).substring(1),
             publishDate: publishDate ?? "",
             path: copied.path,
             cover: cover?.path
         );
-        bookBox.put(book);
+        await bookBox.putAsync(book);
         emit(BookLoaded((state as BookLoaded).books + [book]));
       }
     }

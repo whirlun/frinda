@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:frinda/src/common/blocs/book_bloc.dart';
 import 'package:frinda/src/platforms/macos/add_book.dart';
+import 'package:frinda/src/platforms/macos/book_shelf.dart';
 import 'package:macos_ui/macos_ui.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -41,12 +42,23 @@ class _MyHomePageState extends State<MyHomePage> {
             onChanged: (index) {
               setState(() => _pageIndex = index);
             },
-            items: const [
-              SidebarItem(
+            items: [
+              //SidebarItem(label: Text("Library"), selectedColor: Color.fromARGB(1, 255, 255, 255)),
+              const SidebarItem(label: Text("Library",
+                style: TextStyle(
+                  color: Color.fromARGB(255, 162, 170, 173)
+                ),
+              ), section: true),
+              const SidebarItem(
                 leading: MacosIcon(CupertinoIcons.home),
                 label: Text('Home'),
               ),
-              SidebarItem(
+              const SidebarItem(label: Text("Actions",
+                style: TextStyle(
+                  color: Color.fromARGB(255, 162, 170, 173)
+                ),
+              ), section: true),
+              const SidebarItem(
                 leading: MacosIcon(CupertinoIcons.search),
                 label: Text('Explore'),
               ),
@@ -62,15 +74,7 @@ class _MyHomePageState extends State<MyHomePage> {
               ContentArea(
                 builder: ((context, scrollController) {
                   return BlocBuilder<BookBloc, BookState>(builder: (context, state) {
-                    return Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        AddBookButton(),
-                        Text('Books: ${state is BookLoaded ? state.books.length : 0}'),
-                        if (state is BookLoaded) for(var book in state.books) Text(book.title),
-                      ],
-                    );
+                    return BookShelf(state: state as BookLoaded);
                   });
                 }),
               ),

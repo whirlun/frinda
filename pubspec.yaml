@@ -45,7 +45,10 @@ dependencies:
   flutter_bloc: ^8.1.6
   auto_route: ^9.2.2
   fluent_ui: ^4.10.0
-  macos_ui: ^2.0.9
+  macos_ui:
+    git:
+      url: https://github.com/whirlun/macos_ui.git
+      ref: section_header
   window_manager: ^0.4.3
   epubx: ^4.0.0
   uuid: ^4.5.1
