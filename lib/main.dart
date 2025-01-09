@@ -52,11 +52,15 @@ class MyApp extends StatelessWidget {
 
 class ObjectBox {
   late final Store store;
+
   ObjectBox._create(this.store);
+
   static Future<ObjectBox> create() async {
     final docsDir = await getApplicationSupportDirectory();
     print(p.join(docsDir.path, "frinda_store"));
-    final store = await openStore(directory: p.join(docsDir.path, "frinda_store"), macosApplicationGroup: "frinda");
+    final store = await openStore(
+        directory: p.join(docsDir.path, "frinda_store"),
+        macosApplicationGroup: "frinda");
     return ObjectBox._create(store);
-}
+  }
 }

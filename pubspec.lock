@@ -54,14 +54,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.11.0"
-  auto_route:
-    dependency: "direct main"
-    description:
-      name: auto_route
-      sha256: b83e8ce46da7228cdd019b5a11205454847f0a971bca59a7529b98df9876889b
-      url: "https://pub.dev"
-    source: hosted
-    version: "9.2.2"
   bloc:
     dependency: transitive
     description:
@@ -214,6 +206,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.0.6"
+  csslib:
+    dependency: transitive
+    description:
+      name: csslib
+      sha256: "831883fb353c8bdc1d71979e5b342c7d88acfbc643113c14ae51e2442ea0f20f"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.17.3"
   cupertino_icons:
     dependency: "direct main"
     description:
@@ -338,6 +338,15 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_html:
+    dependency: "direct main"
+    description:
+      path: "."
+      ref: HEAD
+      resolved-ref: "79ec194fa6690e5caba58f5eca04e6748394bb6b"
+      url: "https://github.com/Sub6Resources/flutter_html.git"
+    source: git
+    version: "3.0.0-beta.2"
   flutter_lints:
     dependency: "direct dev"
     description:
@@ -398,6 +407,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.2"
+  go_router:
+    dependency: "direct main"
+    description:
+      name: go_router
+      sha256: "7c2d40b59890a929824f30d442e810116caf5088482629c894b9e4478c67472d"
+      url: "https://pub.dev"
+    source: hosted
+    version: "14.6.3"
   gradient_borders:
     dependency: transitive
     description:
@@ -414,6 +431,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.3.2"
+  html:
+    dependency: transitive
+    description:
+      name: html
+      sha256: "3a7812d5bcd2894edf53dfaf8cd640876cf6cef50a8f238745c8b8120ea74d3a"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.15.4"
   http:
     dependency: transitive
     description:
@@ -515,6 +540,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "5.1.1"
+  list_counter:
+    dependency: transitive
+    description:
+      name: list_counter
+      sha256: c447ae3dfcd1c55f0152867090e67e219d42fe6d4f2807db4bbe8b8d69912237
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.2"
   logging:
     dependency: "direct main"
     description:
@@ -528,7 +561,7 @@ packages:
     description:
       path: "."
       ref: section_header
-      resolved-ref: "8a8ad30d5e4fe9ccb147b89f04434bea4a5d611a"
+      resolved-ref: "24d4a5a69e6ffcea9073d0179be97d3d507b0b17"
       url: "https://github.com/whirlun/macos_ui.git"
     source: git
     version: "2.1.5"
