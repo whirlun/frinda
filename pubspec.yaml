@@ -63,6 +63,7 @@ dependencies:
   objectbox: ^4.0.3
   objectbox_flutter_libs: any
   go_router: ^14.6.3
+  webview_flutter: ^4.10.0
 
 
 dev_dependencies:
